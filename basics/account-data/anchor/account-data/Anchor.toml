@@ -12,7 +12,7 @@ account_data = "JAtNXRnwsThyGmgwdWg9nEDE5LAcjMZPsnDzDFDYaqtS"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

@@ -16,5 +16,14 @@ pub struct CreateAddressInfo<'info> {
 }
 
 pub fn create_address_info(
-    ctx: Context<CreateAddressInfo
-)
+    ctx: Context<CreateAddressInfo>,
+    name: String,
+    house_number: u8,
+    street: String,
+    city: String
+) -> Result<()> {
+    *ctx.accounts.address_info = AddressInfo { name
+        , house_number, street, city
+    };
+    Ok(())
+}
