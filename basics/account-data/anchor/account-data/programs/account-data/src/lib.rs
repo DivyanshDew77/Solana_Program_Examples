@@ -8,7 +8,7 @@ pub mod state;
 declare_id!("JAtNXRnwsThyGmgwdWg9nEDE5LAcjMZPsnDzDFDYaqtS");
 
 #[program]
-pub mod anchor_program_example {
+pub mod account_data {
     use super::*;
 
     pub fn create_address_info(
