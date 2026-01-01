@@ -1,16 +1,32 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { CreateSystemAccount } from "../target/types/create_system_account";
+import { Keypair } from "@solana/web3.js";
+import { assert } from "chai";
 
-describe("create-system-account", () => {
-  // Configure the client to use the local cluster.
-  anchor.setProvider(anchor.AnchorProvider.env());
+describe("Anchor: Create a system account", () => {
+  const provider = anchor.AnchorProvider.env();
+  anchor.setProvider(provider);
+  const wallet = provider.wallet as anchor.Wallet;
+  const connection = provider.connection;
+  const program = anchor.workspace
+        .CreateSystemAccount as anchor.Program<CreateSystemAccount>;
+      
+    it("Create the account", async() =>{
+      const newKeypair = new Keypair();
+      
+      await program.methods
+      .createSystemAccount()
+      .accounts({
+        payer: wallet.publicKey,
+        newAccount: newKeypair.publicKey,
+      })
+      .signers([newKeypair])
+      .rpc();
 
-  const program = anchor.workspace.createSystemAccount as Program<CreateSystemAccount>;
+      const lamports = await connection.getMinimumBalanceForRentExemption(0);
 
-  it("Is initialized!", async () => {
-    // Add your test here.
-    const tx = await program.methods.initialize().rpc();
-    console.log("Your transaction signature", tx);
-  });
+      const accountInfo = await connection.getAccountInfo(newKeypair.publicKey);
+      assert(accountInfo.lamports == lamports);
+    });
 });

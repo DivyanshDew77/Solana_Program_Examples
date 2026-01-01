@@ -12,7 +12,7 @@ create_system_account = "24u8TwH5HdxCdfDQyqYKm7fX3S6DJcqKvDN4VcQEKkH6"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
